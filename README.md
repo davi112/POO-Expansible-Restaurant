@@ -1,3 +1,5 @@
+Este trabalho também seŕa utilizado para o Trabalho Prático da disciplina de Testes
+
 Projeto final da disciplina de Programação orientada por objetos, o trabalho consiste em um sistema de restaurante no qual permita a criação de requisições por mesas e criação de pedidos.
 Para a cafeteria, não existe a necessidade de uma requisição por mesas, pois o cliente faz o pedido no balcão, porém caso seja um cliente do restaurante, é necessário solicitar
 uma mesa antes de fazer os pedidos, o código apresenta um tratamento de exceções não muito correto, porém acabou sendo eficaz para evitar que alguma exceção impedisse o programa de funcionar.
