@@ -1,4 +1,4 @@
-Este trabalho também seŕa utilizado para o Trabalho Prático da disciplina de Testes
+Este trabalho também seŕa utilizado para o Trabalho Prático da disciplina de Testes de Software.
 
 Projeto final da disciplina de Programação orientada por objetos, o trabalho consiste em um sistema de restaurante no qual permita a criação de requisições por mesas e criação de pedidos.
 Para a cafeteria, não existe a necessidade de uma requisição por mesas, pois o cliente faz o pedido no balcão, porém caso seja um cliente do restaurante, é necessário solicitar
