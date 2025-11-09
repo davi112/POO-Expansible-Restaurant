@@ -90,7 +90,7 @@ namespace Tetris.Tests
             var divisao = pedido.CalcularDivisaoValor(3);
 
             // Assert
-            Assert.Equal(16.5, total); // 10 + 1 + 5 + 0.5 = 16.5 (10% taxa)
+            Assert.Equal(16.5, total); 
             Assert.Equal(5.5, divisao);
         }
 
@@ -106,7 +106,7 @@ namespace Tetris.Tests
             var total = pedido.CalcularValorTotal();
 
             // Assert
-            Assert.InRange(total, 11.219, 11.221); // 10% taxa incluída
+            Assert.InRange(total, 11.219, 11.221); 
         }
 
         [Fact]
@@ -123,7 +123,7 @@ namespace Tetris.Tests
             var total = pedido.CalcularValorTotal();
 
             // Assert
-            Assert.Equal(6.6, total); // 10% taxa
+            Assert.Equal(6.6, total);
         }
 
         [Fact]
