@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tetris.Model
 {
-    internal abstract class Estabelecimento : Entidade
+    public abstract class Estabelecimento : Entidade
     {
         protected Cardapio cardapio;
         List<Requisicao> requisicoesAtuais;
