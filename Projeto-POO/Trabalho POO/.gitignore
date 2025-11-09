@@ -1,0 +1,57 @@
+## Build Folders ##
+bin/
+obj/
+out/
+
+## Visual Studio ##
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider ##
+.idea/
+
+## Visual Studio Code ##
+.vscode/
+
+## NuGet ##
+*.nupkg
+packages/
+.nuget/
+
+## Logs ##
+*.log
+*.tlg
+*.err
+
+## Build Results ##
+*.dll
+*.exe
+*.app
+*.appx
+*.apk
+*.xap
+*.jar
+*.war
+
+## OS generated files ##
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Test Results ##
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+## Others ##
+*.publish.xml
+*.cache
+*.pdb
+*.mdb
+*.opendb
+*.userprefs
