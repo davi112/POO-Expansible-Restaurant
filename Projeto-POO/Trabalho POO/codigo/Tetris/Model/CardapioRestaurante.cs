@@ -8,7 +8,7 @@ namespace Tetris.Model
 {
 
     
-    internal class CardapioRestaurante : Cardapio
+    public class CardapioRestaurante : Cardapio
     {
         // Construtor da classe CardapioRestaurante
         public CardapioRestaurante() 

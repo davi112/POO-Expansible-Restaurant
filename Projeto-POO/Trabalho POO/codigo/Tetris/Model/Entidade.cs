@@ -34,5 +34,10 @@ namespace Tetris.Model
         {
             return Id;
         }
+
+        public void reset()
+        {
+            _proximosIds = new Dictionary<Type, int>();
+        }
     }
 }

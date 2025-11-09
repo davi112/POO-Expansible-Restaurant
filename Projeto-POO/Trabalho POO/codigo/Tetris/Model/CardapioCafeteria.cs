@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tetris.Model
 {
-    internal class CardapioCafeteria : Cardapio
+    public class CardapioCafeteria : Cardapio
     {
         // Construtor da classe CardapioCafeteria
         public CardapioCafeteria()

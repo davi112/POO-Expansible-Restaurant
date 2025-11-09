@@ -35,19 +35,15 @@ namespace Tetris.Model
                 return comidas[idProduto];
             }
 
-            if(bebidas.ContainsKey(idProduto))
-            { 
+            if (bebidas.ContainsKey(idProduto))
+            {
                 return bebidas[idProduto];
             }
 
             throw new NullReferenceException(); // Produto não encontrado
         }
-
-        /// <summary>
-        /// Concatena todos os produtos para ser exibido
-        /// </summary>
-        /// <returns>To String para impressão.</returns>
-        public virtual void apresentarCardapio()
+        
+        public String getTextoCardapio()
         {
             StringBuilder cardapio = new StringBuilder();
             cardapio.AppendLine("----- Cardápio -----");
@@ -60,9 +56,17 @@ namespace Tetris.Model
             {
                 cardapio.AppendLine(item.GetId() + " - " + item.ToString());
             }
-            
-            Console.WriteLine(cardapio);
-            
+
+            return cardapio.ToString();
+        }
+
+        /// <summary>
+        /// Concatena todos os produtos para ser exibido
+        /// </summary>
+        /// <returns>To String para impressão.</returns>
+        public virtual void apresentarCardapio()
+        {            
+            Console.WriteLine(this.getTextoCardapio());          
         }
     }
 }
