@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("TetrisTeste")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("TetrisTesteTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4207ca70849bca9a8c1e58a6052f092a9b80e8f3")]
-[assembly: System.Reflection.AssemblyProductAttribute("TetrisTeste")]
-[assembly: System.Reflection.AssemblyTitleAttribute("TetrisTeste")]
+[assembly: System.Reflection.AssemblyProductAttribute("TetrisTesteTests")]
+[assembly: System.Reflection.AssemblyTitleAttribute("TetrisTesteTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.
