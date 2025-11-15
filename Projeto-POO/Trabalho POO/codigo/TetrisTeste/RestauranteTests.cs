@@ -70,7 +70,6 @@ namespace Tetris.Tests
         [Fact]
         public void BuscarPedidos_ViaAbstracao_DeveRetornarPedidoMockado()
         {
-            // Arrange
             var cliente = new Cliente("Ana");
             var mock = new Mock<Estabelecimento>();
 
@@ -81,15 +80,12 @@ namespace Tetris.Tests
             mock.Setup(e => e.CriarRequisicao(cliente, 4)).Returns(requisicao);
             mock.Setup(e => e.BuscarPedidos(cliente)).Returns(pedido);
 
-            // Act
             var requisicaoCriada = mock.Object.CriarRequisicao(cliente, 4);
             var pedidoRetornado = mock.Object.BuscarPedidos(cliente);
 
-            // Assert
             Assert.NotNull(pedidoRetornado);
             Assert.Single(pedidoRetornado.GetPedido());
         }
-
 
         [Fact]
         public void TemRequisicao_ViaAbstracao_ClienteExistente_DeveRetornarTrue()
@@ -169,7 +165,6 @@ namespace Tetris.Tests
                 mock.Object.BuscarPedidos(cliente));
         }
 
-
         [Fact]
         public void FecharConta_ClienteNaoExistente_DeveLancarExcecao()
         {
@@ -180,6 +175,5 @@ namespace Tetris.Tests
             Assert.Throws<NullReferenceException>(() =>
                 mock.Object.FecharConta("Desconhecido"));
         }
-
     }
 }

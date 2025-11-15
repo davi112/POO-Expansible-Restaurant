@@ -17,7 +17,7 @@ namespace Tetris.Model
 
         public int QtdPessoas
         {
-            get { return QtdPessoas; }
+            get { return qtdPessoas; }
         }
 
         
