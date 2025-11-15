@@ -5,13 +5,13 @@ using System;
 
 namespace Tetris.Tests
 {
-    public class RequisicaoTeste
+    public class RequisicaoTests
     {
         [Fact]
         public void Construtor_DeveInicializarValoresCorretamente()
         {
             int quantidadePessoas = 2;
-            var cliente = new Cliente("Chris"); 
+            var cliente = new Cliente("Chris");
 
             var requisicao = new Requisicao(cliente, quantidadePessoas);
 
@@ -25,8 +25,8 @@ namespace Tetris.Tests
         {
             var cliente = new Cliente("Chris");
             var requisicao = new Requisicao(cliente, 1);
-            
-            var mockMesa = new Mock<Mesa>(4); 
+
+            var mockMesa = new Mock<Mesa>(4);
 
             var mesaAlocada = requisicao.AlocarMesa(mockMesa.Object);
 
@@ -38,7 +38,7 @@ namespace Tetris.Tests
         public void BuscarCliente_ComNomeCorreto_DeveRetornarTrue()
         {
             string nomeCliente = "Chris";
-            var clienteReal = new Cliente(nomeCliente); 
+            var clienteReal = new Cliente(nomeCliente);
             var requisicao = new Requisicao(clienteReal, 1);
 
             bool resultado = requisicao.BuscarCliente(nomeCliente);
@@ -62,8 +62,8 @@ namespace Tetris.Tests
         {
             var cliente = new Cliente("Chris");
             var requisicao = new Requisicao(cliente, 2);
-            var produto1 = new Produto("Suco", 20.00);      
-            var produto2 = new Produto("Lanche", 30.00);     
+            var produto1 = new Produto("Suco", 20.00);
+            var produto2 = new Produto("Lanche", 30.00);
 
             requisicao.ReceberProduto(produto1);
             requisicao.ReceberProduto(produto2);
@@ -71,7 +71,7 @@ namespace Tetris.Tests
 
             Assert.Equal(55.00, valorTotal);
         }
-        
+
         [Fact]
         public void FecharConta_PedidoVazio_DeveRetornarZero()
         {
@@ -89,7 +89,7 @@ namespace Tetris.Tests
         {
             var cliente = new Cliente("Chris");
             var requisicao = new Requisicao(cliente, 1);
-            System.Threading.Thread.Sleep(10); 
+            System.Threading.Thread.Sleep(10);
 
             DateTime saida = requisicao.EncerrarRequisicao();
 
@@ -99,7 +99,7 @@ namespace Tetris.Tests
         [Fact]
         public void ToString_SemMesa_DeveFormatarStringCorretamente()
         {
-            var mockCliente = new Mock<Cliente>("Chris"); 
+            var mockCliente = new Mock<Cliente>("Chris");
             mockCliente.Setup(c => c.ToString()).Returns("Cliente: Chris");
 
             var requisicao = new Requisicao(mockCliente.Object, 2);
@@ -114,12 +114,12 @@ namespace Tetris.Tests
         [Fact]
         public void ToString_ComMesa_DeveIncluirInfoDaMesa()
         {
-            var mockCliente = new Mock<Cliente>("Chris"); 
+            var mockCliente = new Mock<Cliente>("Chris");
             mockCliente.Setup(c => c.ToString()).Returns("Cliente: Chris");
 
-            var mockMesa = new Mock<Mesa>(2); 
-            
-            mockMesa.Setup(m => m.GetId()).Returns(5); 
+            var mockMesa = new Mock<Mesa>(2);
+
+            mockMesa.Setup(m => m.GetId()).Returns(5);
 
             var requisicao = new Requisicao(mockCliente.Object, 2);
             requisicao.AlocarMesa(mockMesa.Object);
