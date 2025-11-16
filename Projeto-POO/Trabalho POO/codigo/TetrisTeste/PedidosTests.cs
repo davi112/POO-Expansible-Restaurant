@@ -1,92 +1,57 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System;
 using Xunit;
-using Moq;
 using Tetris.Model;
 
-namespace Tetris.Model
+namespace Tetris.Tests
 {
-    public class Pedido : Entidade
+    public class PedidosTests
     {
-        private List<Produto> Itens;
-        private const double TX_SERVICO = 0.10;
-
-        // Propriedade pública para status do pedido
-        public bool StatusPedidoAberto { get; private set; } = false;
-
-        // Construtor
-        public Pedido()
+        [Fact]
+        public void AdicionarItem_DeveAdicionarProdutoNaLista()
         {
-            Itens = new List<Produto>();
+            var pedido = new Pedido();
+            var produto = new Produto("Café", 5.0);
+
+            pedido.AdicionarItem(produto);
+
+            Assert.Contains(produto, pedido.GetPedido());
+            Assert.Single(pedido.GetPedido());
         }
 
-        // Retornar lista de itens
-        public List<Produto> GetPedido()
+        [Fact]
+        public void CalcularValorTotal_DeveIncluirTaxaServico()
         {
-            return Itens;
+            var pedido = new Pedido();
+            pedido.AdicionarItem(new Produto("Lanche", 10.0)); 
+            pedido.AdicionarItem(new Produto("Suco", 20.0));   
+
+            var total = pedido.CalcularValorTotal();
+
+            Assert.Equal(33.0, total);
         }
 
-        // Adicionar item ao pedido com validação
-        public void AdicionarItem(Produto novo)
+        [Fact]
+        public void CalcularDivisaoValor_DeveDividirCorretamente()
         {
-            if (novo == null || string.IsNullOrWhiteSpace(novo.Nome) || novo.valor < 0 || novo.Quantidade <= 0)
-            {
-                throw new ArgumentException("Produto inválido.");
-            }
+            var pedido = new Pedido();
+            pedido.AdicionarItem(new Produto("Pizza", 50.0)); 
 
-            Itens.Add(novo);
+            var valorPorPessoa = pedido.CalcularDivisaoValor(5);
+
+            Assert.Equal(11.0, valorPorPessoa);
         }
 
-        // Remover item do pedido
-        public void RemoverItem(Produto item)
+        [Fact]
+        public void ToString_DeveListarProdutos()
         {
-            if (item == null)
-                throw new ArgumentException("Item inválido para remoção.");
+            var pedido = new Pedido();
+            var produto = new Produto("Água", 3.0);
+            pedido.AdicionarItem(produto);
 
-            Itens.Remove(item);
-        }
+            var texto = pedido.ToString();
 
-        // Abrir pedido
-        public void GerarPedido(Produto produto)
-        {
-            StatusPedidoAberto = true;
-
-            if (produto != null)
-                AdicionarItem(produto);
-        }
-
-        // Fechar pedido
-        public void FecharPedido()
-        {
-            StatusPedidoAberto = false;
-        }
-
-        // Calcular valor total com taxa
-        public double CalcularValorTotal()
-        {
-            return Itens.Sum(x => x.valor * x.Quantidade * (1 + TX_SERVICO));
-        }
-
-        // Calcular divisão do valor
-        public double CalcularDivisaoValor(int quantidadeDivisoes)
-        {
-            if (quantidadeDivisoes <= 0)
-                throw new ArgumentException("Quantidade de divisões inválida.");
-
-            return CalcularValorTotal() / quantidadeDivisoes;
-        }
-
-        // Representação em string do pedido
-        public override string ToString()
-        {
-            string tmp = "";
-            foreach (Produto item in Itens)
-            {
-                tmp += item.ToString() + "\n";
-            }
-            return tmp;
+            Assert.Contains("Água", texto);
+            Assert.Contains("3", texto);
         }
     }
 }
