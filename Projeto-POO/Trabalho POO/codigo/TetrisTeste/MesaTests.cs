@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tetris.Model;
 
-namespace TetrisTeste
+namespace Tetris.Tests
 {
     public class MesaTests
     {

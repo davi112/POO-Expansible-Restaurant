@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Tetris.Model;
 
 namespace Tetris
 {
+    [ExcludeFromCodeCoverage]
     internal class Program
     {
         #region Atributos

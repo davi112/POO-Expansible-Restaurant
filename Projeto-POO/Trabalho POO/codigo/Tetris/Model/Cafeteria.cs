@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tetris.Model
 {
-    internal class Cafeteria : Estabelecimento
+    public class Cafeteria : Estabelecimento
     {
         List<Requisicao> requisicoesAtuais;
 
@@ -20,6 +20,14 @@ namespace Tetris.Model
         // Método sobrescrito da classe Estabelecimento para criar uma nova requisição
         public override Requisicao CriarRequisicao(Cliente cliente, int quantidade)
         {
+            if(cliente == null)
+            {
+                throw new ArgumentNullException("Cliente não pode ser nulo");
+            }
+            if(quantidade <= 0 || quantidade > 8)
+            {
+                throw new ArgumentOutOfRangeException("Quantidade de pessoas deve estar entre 1 e 8");
+            }
             Requisicao tmp = new Requisicao(cliente, quantidade);
             requisicoesAtuais.Add(tmp);
             return tmp;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Tetris.Model
 {
-    internal class Restaurante : Estabelecimento
+    public class Restaurante : Estabelecimento
     {
         private const int MAX_MESAS = 10;
         private List<Requisicao> listaEspera; 

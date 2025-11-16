@@ -14,12 +14,7 @@ namespace Tetris.Tests
         public void CriarRequisicao_DeveAdicionarRequisicao()
         {
             var cliente = new Cliente("Chris");
-            var mock = new Mock<Estabelecimento>();
-
-            mock.Setup(e => e.CriarRequisicao(cliente, 2))
-                .Returns(new Requisicao(cliente, 2));
-
-            mock.Setup(e => e.TemRequisicao(cliente)).Returns(true);
+            var mock = new Mock<Cafeteria>() { CallBase = true };
 
             var requisicao = mock.Object.CriarRequisicao(cliente, 2);
 
@@ -32,10 +27,7 @@ namespace Tetris.Tests
         public void CriarRequisicao_QuantidadeInvalida_DeveLancarErro()
         {
             var cliente = new Cliente("Chris");
-            var mock = new Mock<Estabelecimento>();
-
-            mock.Setup(e => e.CriarRequisicao(cliente, It.Is<int>(q => q <= 0 || q > 8)))
-                .Throws<ArgumentOutOfRangeException>();
+            var mock = new Mock<Cafeteria>() { CallBase = true };
 
             Assert.Throws<ArgumentOutOfRangeException>(() => mock.Object.CriarRequisicao(cliente, 0));
             Assert.Throws<ArgumentOutOfRangeException>(() => mock.Object.CriarRequisicao(cliente, 9));
@@ -44,9 +36,7 @@ namespace Tetris.Tests
         [Fact]
         public void CriarRequisicao_ClienteNulo_DeveLancarErro()
         {
-            var mock = new Mock<Estabelecimento>();
-            mock.Setup(e => e.CriarRequisicao(null!, It.IsAny<int>()))
-                .Throws<ArgumentNullException>();
+            var mock = new Mock<Cafeteria>() { CallBase = true };
 
             Assert.Throws<ArgumentNullException>(() => mock.Object.CriarRequisicao(null!, 1));
         }
@@ -55,8 +45,7 @@ namespace Tetris.Tests
         public void TemRequisicao_ClienteInexistente_DeveRetornarFalse()
         {
             var cliente = new Cliente("Chris");
-            var mock = new Mock<Estabelecimento>();
-            mock.Setup(e => e.TemRequisicao(cliente)).Returns(false);
+            var mock = new Mock<Cafeteria>() { CallBase = true };
 
             var existe = mock.Object.TemRequisicao(cliente);
 
@@ -146,11 +135,13 @@ namespace Tetris.Tests
         public void BuscarPedidos_DeveRetornarPedidoDoCliente()
         {
             var cliente = new Cliente("Chris");
-            var pedido = new Pedido();
-            pedido.AdicionarItem(new Produto("Café", 6.0));
+            
 
-            var mock = new Mock<Estabelecimento>();
-            mock.Setup(e => e.BuscarPedidos(cliente)).Returns(pedido);
+            var mock = new Mock<Cafeteria>() { CallBase = true };
+            var requisicao = mock.Object.CriarRequisicao(cliente, 1);
+            var pedido = requisicao.GetPedido();
+            var produto = new Produto("Café", 6.0);
+            pedido.AdicionarItem(produto);
 
             var resultado = mock.Object.BuscarPedidos(cliente);
 
@@ -162,25 +153,21 @@ namespace Tetris.Tests
         [Fact]
         public void IncluirProduto_DeveAdicionarProdutoAoPedido()
         {
+            new Produto("Reset", 1).reset();
             var cliente = new Cliente("Chris");
             var produto = new Produto("Café expresso orgânico", 6.0);
             var pedido = new Pedido();
             var requisicao = new Requisicao(cliente, 1);
 
-            var mock = new Mock<Estabelecimento>();
-            mock.Setup(e => e.CriarRequisicao(cliente, 1)).Returns(requisicao);
-            mock.Setup(e => e.BuscarProduto(It.IsAny<int>())).Returns(produto);
-            mock.Setup(e => e.incluirProduto(produto.GetId(), cliente.GetNome())).Returns(produto);
-            mock.Setup(e => e.BuscarPedidos(cliente)).Returns(pedido);
+            var mock = new Mock<Cafeteria>() { CallBase = true };
 
             var req = mock.Object.CriarRequisicao(cliente, 1);
-            var produtoAdicionado = mock.Object.incluirProduto(produto.GetId(), cliente.GetNome());
+            var produtoAdicionado = mock.Object.incluirProduto(11, cliente.GetNome());
             var pedidoRetornado = mock.Object.BuscarPedidos(cliente);
 
             Assert.NotNull(req);
             Assert.Equal(cliente, req.GetCliente());
-            Assert.Equal(produto, produtoAdicionado);
-            Assert.Equal(pedido, pedidoRetornado);
+            Assert.Equal(11, produtoAdicionado.GetId());
         }
 
         [Fact]
@@ -188,14 +175,13 @@ namespace Tetris.Tests
         {
             var cliente = new Cliente("Chris");
             var requisicao = new Requisicao(cliente, 1);
-            var total = 10.0;
-
-            var mock = new Mock<Estabelecimento>();
-            mock.Setup(e => e.CriarRequisicao(cliente, 1)).Returns(requisicao);
-            mock.Setup(e => e.FecharConta(cliente.GetNome())).Returns(total);
-            mock.Setup(e => e.TemRequisicao(cliente)).Returns(false);
+            var total = 9.9;
+            new Produto("Reset", 1).reset();
+            var mock = new Mock<Cafeteria>() { CallBase = true };
 
             var req = mock.Object.CriarRequisicao(cliente, 1);
+            mock.Object.incluirProduto(7, "Chris");
+            
             var totalRetornado = mock.Object.FecharConta(cliente.GetNome());
 
             Assert.Equal(total, totalRetornado);
@@ -205,8 +191,7 @@ namespace Tetris.Tests
         [Fact]
         public void ApresentarCardapio_DeveChamarMetodoDoCardapio()
         {
-            var mock = new Mock<Estabelecimento>();
-            mock.Setup(e => e.ApresentarCardapio());
+            var mock = new Mock<Cafeteria>() { CallBase = true };
 
             mock.Object.ApresentarCardapio();
 
@@ -216,22 +201,18 @@ namespace Tetris.Tests
         [Fact]
         public void BuscarProduto_DeveRetornarProduto()
         {
-            var produto = new Produto("Café", 6.0);
-            var mock = new Mock<Estabelecimento>();
-            mock.Setup(e => e.BuscarProduto(produto.GetId())).Returns(produto);
+            new Produto("teste", 2).reset();
+            var mock = new Mock<Cafeteria>() { CallBase = true };
+            var resultado = mock.Object.BuscarProduto(1);
 
-            var resultado = mock.Object.BuscarProduto(produto.GetId());
-
-            Assert.Equal(produto, resultado);
+            Assert.Equal(1, resultado.GetId());
         }
 
         [Fact]
         public void IncluirProduto_Inexistente_DeveLancarExcecao()
         {
             var cliente = new Cliente("Chris");
-            var mock = new Mock<Estabelecimento>();
-            mock.Setup(e => e.incluirProduto(It.IsAny<int>(), cliente.GetNome()))
-                .Throws<NullReferenceException>();
+            var mock = new Mock<Cafeteria>() { CallBase = true };
 
             Assert.Throws<NullReferenceException>(() => mock.Object.incluirProduto(1, cliente.GetNome()));
         }

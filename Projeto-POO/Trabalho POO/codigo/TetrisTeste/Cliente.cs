@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using Tetris.Model;
 
-namespace TetrisTeste
+namespace Tetris.Tests
 {
     public class ClienteTests
     {
